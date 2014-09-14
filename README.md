@@ -27,6 +27,8 @@ setup-network-environment -o network-environment
 
 ```
 [Unit]
+Description=Setup Network Environment
+Documentation=https://github.com/kelseyhightower/setup-network-environment
 Requires=network-online.target
 After=network-online.target
 
