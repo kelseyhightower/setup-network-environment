@@ -1,0 +1,11 @@
+{
+	"ImportPath": "github.com/kelseyhightower/setup-network-environment",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/docker/libcontainer/netlink",
+			"Comment": "v1.1.0-115-ge6a43c1",
+			"Rev": "e6a43c1c2b9f769deb96348a0a93417cd48a36d8"
+		}
+	]
+}
