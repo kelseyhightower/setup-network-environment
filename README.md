@@ -38,6 +38,8 @@ ExecStartPre=/usr/bin/wget -N -P /opt/bin https://github.com/kelseyhightower/set
 
 ExecStartPre=/usr/bin/chmod +x /opt/bin/setup-network-environment
 ExecStart=/opt/bin/setup-network-environment
+RemainAfterExit=yes
+Type=oneshot
 ```
 
 #### Depending on the setup-network-environment.service
