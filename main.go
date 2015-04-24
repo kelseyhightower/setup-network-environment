@@ -59,7 +59,7 @@ func writeEnvironment(w io.Writer) error {
 		}
 		for _, addr := range addrs {
 			ip, _, err := net.ParseCIDR(addr.String())
-			// Record IPv4 network settings. Stop at the frist IPv4 address
+			// Record IPv4 network settings. Stop at the first IPv4 address
 			// found for the interface.
 			if err == nil && ip.To4() != nil {
 				buffer.WriteString(fmt.Sprintf("%s_IPV4=%s\n", strings.ToUpper(iface.Name), ip.String()))
