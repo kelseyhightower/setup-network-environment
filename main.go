@@ -62,7 +62,7 @@ func writeEnvironment(w io.Writer) error {
 			// Record IPv4 network settings. Stop at the frist IPv4 address
 			// found for the interface.
 			if err == nil && ip.To4() != nil {
-				buffer.WriteString(fmt.Sprintf("%s_IPV4=%s\n", strings.ToUpper(iface.Name), ip.String()))
+				buffer.WriteString(fmt.Sprintf("%s_IPV4=%s\n", strings.Replace(strings.ToUpper(iface.Name), ".", "_", -1), ip.String()))
 				if defaultIfaceName == iface.Name {
 					buffer.WriteString(fmt.Sprintf("DEFAULT_IPV4=%s\n", ip.String()))
 				}
