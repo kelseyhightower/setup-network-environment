@@ -69,6 +69,18 @@ func writeEnvironment(w io.Writer) error {
 				break
 			}
 		}
+		for _, addr := range addrs {
+			ip, _, err := net.ParseCIDR(addr.String())
+			// Record IPv4 network settings. Stop at the first IPv4 address
+			// found for the interface.
+			if err == nil && ip.To4() == nil && ip.IsGlobalUnicast() {
+				buffer.WriteString(fmt.Sprintf("%s_IPV6=%s\n", strings.Replace(strings.ToUpper(iface.Name), ".", "_", -1), ip.String()))
+				if defaultIfaceName == iface.Name {
+					buffer.WriteString(fmt.Sprintf("DEFAULT_IPV6=%s\n", ip.String()))
+				}
+				break
+			}
+		}
 	}
 	if _, err := buffer.WriteTo(w); err != nil {
 		return err
