@@ -42,6 +42,20 @@ RemainAfterExit=yes
 Type=oneshot
 ```
 
+When using systemd-networkd, to make sure that all interfaces are up and have an IP address assigned use:
+
+```
+Requires=systemd-networkd-wait-online.service
+After=systemd-networkd-wait-online.service
+```
+
+Someone else may be using NetworkManager, in which case that would be:
+
+```
+Requires=NetworkManager-wait-online.service
+After=NetworkManager-wait-online.service
+```
+
 #### Depending on the setup-network-environment.service
 
 ```
