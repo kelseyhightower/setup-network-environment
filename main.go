@@ -20,11 +20,13 @@ import (
 var (
 	defaultEnvironmentFilePath = "/etc/network-environment"
 	environmentFilePath        string
+	defaultIfaceName           string
 )
 
 func init() {
 	log.SetFlags(0)
 	flag.StringVar(&environmentFilePath, "o", defaultEnvironmentFilePath, "environment file")
+	flag.StringVar(&defaultIfaceName, "i", "", "default interface")
 }
 
 func main() {
@@ -43,10 +45,13 @@ func main() {
 
 func writeEnvironment(w io.Writer) error {
 	var buffer bytes.Buffer
-	defaultIfaceName, err := getDefaultGatewayIfaceName()
-	if err != nil {
-		// A default route is not required; log it and keep going.
-		log.Println(err)
+	var err error
+	if defaultIfaceName == "" {
+		defaultIfaceName, err = getDefaultGatewayIfaceName()
+		if err != nil {
+			// A default route is not required; log it and keep going.
+			log.Println(err)
+		}
 	}
 	interfaces, err := net.Interfaces()
 	if err != nil {
